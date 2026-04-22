@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Crazy Wings BCN en Barcelona. Reserva tu mesa, descubre la carta, consulta horarios y vive una experiencia gastronómica con carácter propio." />
+  <meta name="theme-color" content="#0f0f10" />
+  <meta name="format-detection" content="telephone=no" />
+  <title>Crazy Wings BCN | Restaurante en Barcelona</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0b0b0d;
+      --bg-soft:#111114;
+      --panel:#141418;
+      --panel-2:#1a1b20;
+      --line:rgba(255,255,255,.08);
+      --line-strong:rgba(212,175,55,.22);
+      --text:#f6f1e8;
+      --muted:#b7aea2;
+      --gold:#d4af37;
+      --gold-soft:#f0d98a;
+      --wine:#4d1224;
+      --olive:#183127;
+      --accent:#d97706;
+      --shadow:0 30px 80px rgba(0,0,0,.38);
+      --radius-xl:32px;
+      --radius-lg:24px;
+      --radius-md:18px;
+      --max:1280px;
+      --ease:cubic-bezier(.22,1,.36,1);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(212,175,55,.10), transparent 22%),
+        radial-gradient(circle at top right, rgba(138,22,57,.14), transparent 28%),
+        linear-gradient(180deg,#0b0b0d 0%,#101014 38%,#0d0d10 100%);
+      overflow-x:hidden;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background:
+        linear-gradient(rgba(255,255,255,.018), rgba(255,255,255,.018)),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E");
+      mix-blend-mode:soft-light;
+      opacity:.35;
+    }
+
+    img{max-width:100%;display:block}
+    a{text-decoration:none;color:inherit}
+    button,input,select,textarea{font:inherit}
+    .container{width:min(var(--max), calc(100% - 32px));margin:0 auto}
+    .section{padding:110px 0;position:relative}
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 16px;
+      border:1px solid rgba(212,175,55,.18);
+      border-radius:999px;
+      color:var(--gold-soft);
+      background:rgba(255,255,255,.03);
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      font-size:.72rem;
+      font-weight:700;
+      backdrop-filter:blur(10px);
+    }
+
+    .section-head{
+      display:flex;
+      align-items:end;
+      justify-content:space-between;
+      gap:24px;
+      margin-bottom:34px;
+      flex-wrap:wrap;
+    }
+
+    h1,h2,h3,h4{
+      margin:0;
+      font-family:'Cormorant Garamond', serif;
+      letter-spacing:-.03em;
+      line-height:.95;
+    }
+
+    h1{font-size:clamp(3.6rem,10vw,7.6rem)}
+    h2{font-size:clamp(2.4rem,6vw,4.6rem)}
+    h3{font-size:clamp(1.5rem,3vw,2.2rem)}
+
+    p{margin:0}
+
+    .muted{
+      color:var(--muted);
+      line-height:1.8;
+      font-size:1.02rem;
+    }
+
+    .gold{color:var(--gold-soft)}
+
+    .btn-row{display:flex;gap:14px;flex-wrap:wrap}
+    .btn{
+      position:relative;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:56px;
+      padding:0 24px;
+      border-radius:999px;
+      border:1px solid transparent;
+      font-weight:700;
+      letter-spacing:.01em;
+      transition:transform .45s var(--ease), box-shadow .45s var(--ease), border-color .45s var(--ease), background .45s var(--ease);
+      overflow:hidden;
+      cursor:pointer;
+    }
+    .btn:hover{transform:translateY(-3px)}
+    .btn-primary{
+      color:#130f08;
+      background:linear-gradient(135deg,var(--gold-soft),var(--gold),#b8871e);
+      box-shadow:0 16px 36px rgba(212,175,55,.18);
+    }
+    .btn-secondary{
+      color:var(--text);
+      border-color:rgba(255,255,255,.12);
+      background:rgba(255,255,255,.04);
+      backdrop-filter:blur(12px);
+    }
+    .btn-whatsapp{
+      color:#d9ffe8;
+      background:rgba(37,211,102,.10);
+      border-color:rgba(37,211,102,.26);
+    }
+
+    .topbar{
+      position:fixed;
+      top:18px;
+      left:0;
+      width:100%;
+      z-index:100;
+      transition:transform .4s var(--ease), background .4s var(--ease), border-color .4s var(--ease);
+    }
+
+    .nav-shell{
+      width:min(var(--max), calc(100% - 28px));
+      margin:0 auto;
+      padding:14px 18px;
+      border-radius:22px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(13,13,17,.66);
+      backdrop-filter:blur(18px);
+      box-shadow:0 16px 40px rgba(0,0,0,.24);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      min-width:0;
+    }
+
+    .brand-badge{
+      width:54px;
+      height:54px;
+      border-radius:16px;
+      overflow:hidden;
+      border:1px solid rgba(212,175,55,.22);
+      background:linear-gradient(135deg, rgba(212,175,55,.12), rgba(255,255,255,.02));
+      box-shadow:0 14px 34px rgba(0,0,0,.28);
+      flex:0 0 54px;
+    }
+
+    .brand-badge img{width:100%;height:100%;object-fit:cover}
+    .brand-copy strong{
+      display:block;
+      font-size:.96rem;
+      letter-spacing:.02em;
+    }
+    .brand-copy span{
+      display:block;
+      color:var(--muted);
+      font-size:.78rem;
+      margin-top:2px;
+    }
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .nav-links a{
+      padding:12px 14px;
+      font-size:.92rem;
+      color:#ece3d5;
+      border-radius:999px;
+      transition:all .35s var(--ease);
+      border:1px solid transparent;
+    }
+
+    .nav-links a:hover{
+      color:#fff9ee;
+      background:rgba(255,255,255,.05);
+      border-color:rgba(212,175,55,.16);
+    }
+
+    .nav-links .cta-mini{
+      background:linear-gradient(135deg,var(--gold-soft),var(--gold));
+      color:#130f08;
+      font-weight:800;
+      box-shadow:0 12px 28px rgba(212,175,55,.18);
+    }
+
+    .hero{
+      min-height:100vh;
+      display:grid;
+      align-items:end;
+      position:relative;
+      padding:120px 0 60px;
+      overflow:hidden;
+    }
+
+    .hero-media,
+    .hero-overlay,
+    .hero-vignette{
+      position:absolute;
+      inset:0;
+    }
+
+    .hero-media{
+      background:
+        linear-gradient(rgba(8,8,10,.45), rgba(8,8,10,.62)),
+        url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1800&q=80') center/cover no-repeat;
+      transform:scale(1.06);
+      animation:heroZoom 18s ease-in-out infinite alternate;
+    }
+
+    .hero-overlay{
+      background:
+        linear-gradient(180deg, rgba(8,8,10,.24) 0%, rgba(8,8,10,.46) 40%, rgba(8,8,10,.92) 100%),
+        radial-gradient(circle at 20% 20%, rgba(212,175,55,.10), transparent 30%),
+        radial-gradient(circle at 80% 25%, rgba(125,19,54,.18), transparent 22%);
+    }
+
+    .hero-vignette{
+      background:linear-gradient(90deg, rgba(0,0,0,.36), transparent 44%, rgba(0,0,0,.2));
+    }
+
+    .hero-grid{
+      position:relative;
+      z-index:2;
+      display:grid;
+      grid-template-columns:minmax(0, 1.12fr) minmax(320px, .88fr);
+      gap:26px;
+      align-items:end;
+    }
+
+    .hero-copy{max-width:780px}
+    .hero-copy p{max-width:700px;margin-top:20px}
+
+    .hero-card,
+    .glass-card,
+    .menu-card,
+    .testimonial,
+    .contact-card,
+    .gallery-tile,
+    .stat,
+    .booking-panel{
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.025));
+      border:1px solid rgba(255,255,255,.08);
+      backdrop-filter:blur(16px);
+      box-shadow:var(--shadow);
+    }
+
+    .hero-card{
+      border-radius:28px;
+      padding:26px;
+      align-self:end;
+    }
+
+    .hero-card .mini-label{
+      color:var(--gold-soft);
+      text-transform:uppercase;
+      letter-spacing:.16em;
+      font-size:.72rem;
+      font-weight:700;
+      margin-bottom:14px;
+      display:block;
+    }
+
+    .hero-card-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+      margin:20px 0 22px;
+    }
+
+    .stat{
+      border-radius:20px;
+      padding:18px;
+      min-height:110px;
+    }
+
+    .stat strong{
+      display:block;
+      font-size:1.75rem;
+      font-family:'Cormorant Garamond', serif;
+      color:var(--gold-soft);
+      margin-bottom:6px;
+    }
+
+    .stat span{
+      color:var(--muted);
+      font-size:.92rem;
+      line-height:1.55;
+    }
+
+    .hero-pills{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .hero-pills span{
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(212,175,55,.14);
+      color:#efe6d9;
+      font-size:.86rem;
+      background:rgba(255,255,255,.04);
+    }
+
+    .floating-reserve{
+      position:fixed;
+      right:22px;
+      bottom:20px;
+      z-index:90;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      align-items:flex-end;
+    }
+
+    .floating-reserve a{
+      width:62px;
+      height:62px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      border:1px solid rgba(255,255,255,.1);
+      box-shadow:0 18px 40px rgba(0,0,0,.3);
+      backdrop-filter:blur(18px);
+      transition:transform .35s var(--ease);
+    }
+
+    .floating-reserve a:hover{transform:translateY(-4px) scale(1.03)}
+    .float-book{background:linear-gradient(135deg,var(--gold-soft),var(--gold));color:#130f08}
+    .float-wa{background:linear-gradient(135deg,#30e07a,#25d366);color:#07150d}
+
+    .about-grid,
+    .special-grid,
+    .testimonials-grid,
+    .contact-grid,
+    .footer-grid{
+      display:grid;
+      gap:22px;
+    }
+
+    .about-grid{grid-template-columns:1.1fr .9fr;align-items:stretch}
+    .special-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .testimonials-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .contact-grid{grid-template-columns:.9fr 1.1fr}
+    .footer-grid{grid-template-columns:1.15fr .85fr .8fr .8fr}
+
+    .glass-card,
+    .contact-card,
+    .booking-panel{
+      border-radius:30px;
+      padding:32px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .glass-card::before,
+    .contact-card::before,
+    .booking-panel::before{
+      content:"";
+      position:absolute;
+      inset:auto -10% 0 auto;
+      width:180px;
+      height:180px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(212,175,55,.12), transparent 66%);
+      pointer-events:none;
+    }
+
+    .feature-list{
+      margin-top:24px;
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:14px;
+    }
+
+    .feature{
+      padding:18px;
+      border-radius:20px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.03);
+    }
+
+    .feature strong{display:block;margin-bottom:8px;color:var(--gold-soft);font-size:1rem}
+    .feature span{display:block;color:var(--muted);line-height:1.65;font-size:.95rem}
+
+    .about-visual{
+      min-height:540px;
+      border-radius:30px;
+      overflow:hidden;
+      position:relative;
+      box-shadow:var(--shadow);
+      border:1px solid rgba(255,255,255,.08);
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.14), rgba(0,0,0,.58)),
+        url('https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+      background-attachment:fixed;
+    }
+
+    .about-quote{
+      position:absolute;
+      left:24px;
+      right:24px;
+      bottom:24px;
+      padding:24px;
+      border-radius:24px;
+      background:rgba(12,12,16,.55);
+      border:1px solid rgba(255,255,255,.08);
+      backdrop-filter:blur(12px);
+    }
+
+    .about-quote strong{
+      display:block;
+      font-size:1.35rem;
+      margin-bottom:10px;
+      color:#fff7ea;
+      font-family:'Cormorant Garamond', serif;
+    }
+
+    .menu-card{
+      position:relative;
+      padding:18px;
+      border-radius:24px;
+      overflow:hidden;
+      transition:transform .45s var(--ease), border-color .45s var(--ease), box-shadow .45s var(--ease);
+    }
+
+    .menu-card:hover{
+      transform:translateY(-8px);
+      border-color:rgba(212,175,55,.28);
+      box-shadow:0 34px 70px rgba(0,0,0,.36);
+    }
+
+    .menu-image{
+      aspect-ratio:4/4.4;
+      border-radius:18px;
+      overflow:hidden;
+      margin-bottom:18px;
+      position:relative;
+    }
+
+    .menu-image img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transition:transform .75s var(--ease);
+    }
+
+    .menu-card:hover .menu-image img{transform:scale(1.06)}
+
+    .menu-tag{
+      position:absolute;
+      left:14px;
+      top:14px;
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:.72rem;
+      font-weight:700;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      background:rgba(10,10,14,.7);
+      color:var(--gold-soft);
+      border:1px solid rgba(212,175,55,.18);
+      backdrop-filter:blur(10px);
+    }
+
+    .menu-card p{margin-top:10px;color:var(--muted);line-height:1.75;font-size:.95rem}
+    .price{display:inline-block;margin-top:16px;color:var(--gold-soft);font-weight:800;letter-spacing:.04em}
+
+    .menus-highlight{
+      margin-top:26px;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:20px;
+    }
+
+    .menu-banner{
+      min-height:260px;
+      border-radius:28px;
+      padding:28px;
+      position:relative;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow:var(--shadow);
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-end;
+    }
+
+    .menu-banner::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.75));
+      z-index:0;
+    }
+
+    .menu-banner > *{position:relative;z-index:1}
+
+    .menu-banner.tasting{background:url('https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat}
+    .menu-banner.groups{background:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat}
+
+    .gallery-grid{
+      display:grid;
+      grid-template-columns:1.15fr .9fr .9fr;
+      grid-auto-rows:220px;
+      gap:18px;
+    }
+
+    .gallery-tile{
+      border-radius:26px;
+      overflow:hidden;
+      position:relative;
+      isolation:isolate;
+      transition:transform .45s var(--ease), box-shadow .45s var(--ease);
+    }
+
+    .gallery-tile:hover{transform:translateY(-6px)}
+    .gallery-tile img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+    .gallery-tile:hover img{transform:scale(1.08)}
+
+    .gallery-tile::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg, rgba(0,0,0,.02), rgba(0,0,0,.68));
+      z-index:1;
+    }
+
+    .gallery-tile span{
+      position:absolute;
+      left:20px;
+      bottom:18px;
+      z-index:2;
+      color:#fff8ec;
+      font-weight:700;
+      letter-spacing:.02em;
+    }
+
+    .gallery-tile.large{grid-row:span 2}
+    .gallery-tile.wide{grid-column:span 2}
+
+    .testimonial{
+      border-radius:24px;
+      padding:24px;
+      min-height:100%;
+      transition:transform .4s var(--ease), border-color .4s var(--ease);
+    }
+
+    .testimonial:hover{
+      transform:translateY(-6px);
+      border-color:rgba(212,175,55,.2);
+    }
+
+    .stars{
+      color:var(--gold-soft);
+      font-size:1.05rem;
+      letter-spacing:.22em;
+      margin-bottom:16px;
+    }
+
+    .testimonial p{
+      color:#efe8dc;
+      line-height:1.8;
+      font-size:.98rem;
+      margin-bottom:18px;
+    }
+
+    .reviewer{
+      border-top:1px solid rgba(255,255,255,.08);
+      padding-top:16px;
+      color:var(--muted);
+      font-size:.92rem;
+    }
+
+    .booking-wrap{
+      display:grid;
+      grid-template-columns:.92fr 1.08fr;
+      gap:22px;
+      align-items:start;
+    }
+
+    .booking-panel form{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+      margin-top:24px;
+    }
+
+    .field{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+
+    .field label{
+      color:#ece3d8;
+      font-size:.9rem;
+      font-weight:600;
+    }
+
+    .field input,
+    .field select,
+    .field textarea{
+      width:100%;
+      border:1px solid rgba(255,255,255,.09);
+      background:rgba(255,255,255,.04);
+      color:var(--text);
+      border-radius:16px;
+      padding:16px 16px;
+      outline:none;
+      transition:border-color .3s ease, transform .3s ease, background .3s ease;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus{
+      border-color:rgba(212,175,55,.45);
+      background:rgba(255,255,255,.06);
+      transform:translateY(-1px);
+    }
+
+    .field textarea{min-height:146px;resize:vertical}
+    .field.full{grid-column:1 / -1}
+
+    .booking-info{
+      display:grid;
+      gap:18px;
+    }
+
+    .info-tile{
+      padding:24px;
+      border-radius:24px;
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.025));
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow:var(--shadow);
+    }
+
+    .info-tile strong{
+      display:block;
+      margin-bottom:10px;
+      color:var(--gold-soft);
+      font-size:1.02rem;
+    }
+
+    .info-tile p,
+    .info-tile a{color:var(--muted);line-height:1.75}
+
+    .map-frame{
+      width:100%;
+      height:100%;
+      min-height:420px;
+      border:0;
+      border-radius:24px;
+      filter:grayscale(.18) contrast(1.02) saturate(.85);
+    }
+
+    footer{
+      padding:34px 0 30px;
+      border-top:1px solid rgba(255,255,255,.08);
+      background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
+    }
+
+    .footer-grid{align-items:start}
+    .footer-col h4{
+      font-family:'Inter',sans-serif;
+      font-size:.95rem;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:var(--gold-soft);
+      margin-bottom:16px;
+    }
+
+    .footer-col p,
+    .footer-col a{
+      color:var(--muted);
+      line-height:1.9;
+      font-size:.95rem;
+      display:block;
+    }
+
+    .footer-bottom{
+      margin-top:26px;
+      padding-top:22px;
+      border-top:1px solid rgba(255,255,255,.06);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      color:#93897b;
+      font-size:.9rem;
+    }
+
+    .reveal{
+      opacity:0;
+      transform:translateY(34px) scale(.985);
+      transition:opacity .9s var(--ease), transform .9s var(--ease);
+      will-change:opacity, transform;
+    }
+
+    .reveal.is-visible{
+      opacity:1;
+      transform:translateY(0) scale(1);
+    }
+
+    @keyframes heroZoom{
+      from{transform:scale(1.04)}
+      to{transform:scale(1.12)}
+    }
+
+    @media (max-width:1100px){
+      .hero-grid,
+      .about-grid,
+      .contact-grid,
+      .booking-wrap,
+      .footer-grid,
+      .special-grid,
+      .testimonials-grid,
+      .menus-highlight{
+        grid-template-columns:1fr 1fr;
+      }
+
+      .hero-grid,
+      .about-grid,
+      .contact-grid,
+      .booking-wrap{
+        grid-template-columns:1fr;
+      }
+
+      .gallery-grid{
+        grid-template-columns:1fr 1fr;
+      }
+
+      .footer-grid{grid-template-columns:repeat(2,1fr)}
+      .special-grid{grid-template-columns:repeat(2,1fr)}
+      .testimonials-grid{grid-template-columns:repeat(2,1fr)}
+      .about-visual{min-height:440px;background-attachment:scroll}
+    }
+
+    @media (max-width:760px){
+      .container{width:min(var(--max), calc(100% - 20px))}
+      .section{padding:82px 0}
+      .topbar{top:12px}
+      .nav-shell{
+        padding:14px;
+        align-items:flex-start;
+        flex-direction:column;
+      }
+      .nav-links{
+        width:100%;
+        display:grid;
+        grid-template-columns:repeat(2,minmax(0,1fr));
+        gap:8px;
+      }
+      .nav-links a{
+        text-align:center;
+        padding:12px 10px;
+        background:rgba(255,255,255,.03);
+        border:1px solid rgba(255,255,255,.06);
+      }
+      .nav-links .cta-mini{grid-column:1 / -1}
+      .hero{padding-top:138px;padding-bottom:38px;min-height:auto}
+      .hero-grid{gap:18px}
+      .hero-card,.glass-card,.contact-card,.booking-panel{padding:22px;border-radius:24px}
+      .hero-card-grid,
+      .feature-list,
+      .booking-panel form,
+      .special-grid,
+      .testimonials-grid,
+      .contact-grid,
+      .footer-grid,
+      .menus-highlight,
+      .gallery-grid{
+        grid-template-columns:1fr;
+      }
+      .gallery-grid{grid-auto-rows:210px}
+      .gallery-tile.large,.gallery-tile.wide{grid-row:auto;grid-column:auto}
+      .btn{width:100%}
+      .btn-row{flex-direction:column}
+      .floating-reserve{right:12px;bottom:12px}
+      .floating-reserve a{width:56px;height:56px}
+      .map-frame{min-height:320px}
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar" aria-label="Cabecera principal">
+    <div class="nav-shell">
+      <a class="brand" href="#inicio" aria-label="Ir al inicio">
+        <div class="brand-badge">
+          <img src="mascota-cw.png" alt="Logo de Crazy Wings BCN" />
+        </div>
+        <div class="brand-copy">
+          <strong>Crazy Wings BCN</strong>
+          <span>Barcelona · Street Food Colombiano</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="Navegación principal">
+        <a href="#inicio">Inicio</a>
+        <a href="#carta">Carta</a>
+        <a href="#delivery">Pedir a domicilio</a>
+        <a href="#menus">Menús</a>
+        <a href="#galeria">Galería</a>
+        <a href="#nosotros">Sobre Nosotros</a>
+        <a href="#opiniones">Opiniones</a>
+        <a href="#reservas">Reservas</a>
+        <a href="#contacto">Contacto</a>
+        <a class="btn btn-secondary" href="#delivery">Pedir a domicilio</a>
+        <a class="cta-mini" href="https://www.google.com/maps/reserve/v/dine/c/DMhoug0Rlo0?hl=es-ES&source=pa" target="_blank" rel="noopener noreferrer">Reservar Mesa</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-media" aria-hidden="true"></div>
+      <div class="hero-overlay" aria-hidden="true"></div>
+      <div class="hero-vignette" aria-hidden="true"></div>
+
+      <div class="container hero-grid">
+        <div class="hero-copy reveal is-visible">
+          <span class="eyebrow">Experiencia gastronómica en Barcelona</span>
+          <h1>Una experiencia gastronómica que <span class="gold">va más allá del sabor</span></h1>
+          <p class="muted">Cocina de calidad, ambiente exclusivo y una experiencia única en cada visita. Crazy Wings BCN combina carácter, producto y una puesta en escena visual que convierte cada comida en un momento memorable.</p>
+
+          <div class="btn-row" style="margin-top:30px;">
+            <a class="btn btn-primary" href="https://www.google.com/maps/reserve/v/dine/c/DMhoug0Rlo0?hl=es-ES&source=pa" target="_blank" rel="noopener noreferrer">Reservar Mesa</a>
+            <a class="btn btn-secondary" href="https://drive.google.com/file/d/1iLZQvjmu5ORGtHCh0nDIccwX65xw_f1y/view" target="_blank" rel="noopener noreferrer">Ver Carta</a>
+            <a class="btn btn-whatsapp" href="#delivery">Pedir a domicilio</a>
+          </div>
+        </div>
+
+        <aside class="hero-card reveal">
+          <span class="mini-label">Crazy Wings BCN</span>
+          <h3>Restaurante con personalidad propia y una propuesta directa, intensa y memorable.</h3>
+          <div class="hero-card-grid">
+            <div class="stat">
+              <strong>10–20 €</strong>
+              <span>Precio medio orientativo por persona.</span>
+            </div>
+            <div class="stat">
+              <strong>4,5★</strong>
+              <span>Más de 700 reseñas de clientes.</span>
+            </div>
+            <div class="stat">
+              <strong>Terraza</strong>
+              <span>Espacio pensado para disfrutar con calma.</span>
+            </div>
+            <div class="stat">
+              <strong>Reserva</strong>
+              <span>Acceso rápido a mesa online y WhatsApp.</span>
+            </div>
+          </div>
+          <div class="hero-pills">
+            <span>Alitas y burgers</span>
+            <span>Platos veganos</span>
+            <span>Wi‑Fi</span>
+            <span>Delivery disponible</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="nosotros">
+      <div class="container about-grid">
+        <article class="glass-card reveal">
+          <div class="section-head" style="margin-bottom:22px;">
+            <div>
+              <span class="eyebrow">Sobre el restaurante</span>
+              <h2>Carácter, producto y una experiencia con identidad</h2>
+            </div>
+          </div>
+          <p class="muted">Crazy Wings BCN es un restaurante de street food colombiano en Barcelona especializado en alitas con salsas únicas, hamburguesas, hot dogs, tequeños y arepas. El concepto gira en torno a sabores intensos, servicio cercano y una atmósfera con personalidad, ideal tanto para una comida informal como para una salida especial con amigos o en pareja.</p>
+
+          <div class="feature-list">
+            <div class="feature">
+              <strong>Propuesta gastronómica</strong>
+              <span>Street food colombiano con platos icónicos, combinaciones potentes y presentación cuidada.</span>
+            </div>
+            <div class="feature">
+              <strong>Ambiente</strong>
+              <span>Local con rollo propio, energía visual y una experiencia más memorable que la oferta convencional.</span>
+            </div>
+            <div class="feature">
+              <strong>Atención y comodidad</strong>
+              <span>Reserva online, opción de WhatsApp, terraza y servicios pensados para una visita fluida.</span>
+            </div>
+            <div class="feature">
+              <strong>Barcelona</strong>
+              <span>Ubicado en C/ de Padilla, 386, Horta-Guinardó, 08026 Barcelona.</span>
+            </div>
+          </div>
+        </article>
+
+        <div class="about-visual reveal" aria-hidden="true">
+          <div class="about-quote">
+            <strong>Una experiencia sabrosa, visual y con mucha personalidad.</strong>
+            <p class="muted">Especializado en alitas con salsas únicas, burgers, hot dogs, tequeños y arepas.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="carta">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Carta y especialidades</span>
+            <h2>Platos destacados que abren el apetito desde el primer vistazo</h2>
+          </div>
+          <div class="btn-row">
+            <a class="btn btn-secondary" href="https://drive.google.com/file/d/1iLZQvjmu5ORGtHCh0nDIccwX65xw_f1y/view" target="_blank" rel="noopener noreferrer">Abrir carta completa</a>
+          </div>
+        </div>
+
+        <div class="special-grid">
+          <article class="menu-card reveal">
+            <div class="menu-image">
+              <span class="menu-tag">Entrantes</span>
+              <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=900&q=80" alt="Tequeños recién hechos" />
+            </div>
+            <h3>Tequeños</h3>
+            <p>Crujientes, dorados y perfectos para abrir la experiencia con una opción sabrosa y muy compartible.</p>
+            <span class="price">Consultar carta</span>
+          </article>
+
+          <article class="menu-card reveal">
+            <div class="menu-image">
+              <span class="menu-tag">Platos principales</span>
+              <img src="https://images.unsplash.com/photo-1608039755401-742074f0548d?auto=format&fit=crop&w=900&q=80" alt="Alitas de pollo" />
+            </div>
+            <h3>Alitas con salsas únicas</h3>
+            <p>La especialidad de la casa. Intensidad, personalidad y una combinación de sabor que define el local.</p>
+            <span class="price">Consultar carta</span>
+          </article>
+
+          <article class="menu-card reveal">
+            <div class="menu-image">
+              <span class="menu-tag">Street burgers</span>
+              <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=900&q=80" alt="Hamburguesa gourmet" />
+            </div>
+            <h3>Burgers y hot dogs</h3>
+            <p>Opciones contundentes, visuales y con espíritu urbano para quienes buscan una comida con presencia.</p>
+            <span class="price">Consultar carta</span>
+          </article>
+
+          <article class="menu-card reveal">
+            <div class="menu-image">
+              <span class="menu-tag">Sabores colombianos</span>
+              <img src="https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&w=900&q=80" alt="Arepas colombianas rellenas" />
+            </div>
+            <h3>Arepas y más</h3>
+            <p>Sabores auténticos para completar una carta pensada para foodies y amantes de la cocina latina.</p>
+            <span class="price">Consultar carta</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="menus">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Menús especiales</span>
+            <h2>Opciones flexibles para momentos distintos</h2>
+          </div>
+        </div>
+
+        <div class="menus-highlight">
+          <article class="menu-banner tasting reveal">
+            <span class="eyebrow" style="width:max-content;">Degustación</span>
+            <h3>Selección de especialidades</h3>
+            <p class="muted" style="color:#f2eadf; margin-top:12px; max-width:520px;">Una propuesta ideal para descubrir los platos más representativos del restaurante y compartir la experiencia.</p>
+          </article>
+
+          <article class="menu-banner groups reveal">
+            <span class="eyebrow" style="width:max-content;">Grupos y eventos</span>
+            <h3>Opciones para reuniones y celebraciones</h3>
+            <p class="muted" style="color:#f2eadf; margin-top:12px; max-width:520px;">Espacio preparado para encuentros con amigos, comidas en grupo o reservas especiales con atención directa.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="delivery">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Delivery</span>
+            <h2>Pide a domicilio en minutos</h2>
+          </div>
+        </div>
+        <div class="special-grid">
+          <a class="menu-card reveal" href="https://glovoapp.com/es/es/barcelona/stores/crazy-wings-bcn-bcn?utm_source=google&utm_medium=organic&utm_campaign=google_reserve_place_order_action" target="_blank" rel="noopener noreferrer">
+            <h3>Glovo</h3>
+            <p>Entrega rápida a domicilio en Barcelona.</p>
+            <span class="price">Pedir ahora</span>
+          </a>
+          <a class="menu-card reveal" href="https://www.just-eat.es/restaurants-crazy-wings-and--bcn-barcelona/menu?serviceType=collection&utm_source=google&utm_medium=organic&utm_campaign=foodorder" target="_blank" rel="noopener noreferrer">
+            <h3>Just Eat</h3>
+            <p>Haz tu pedido online fácilmente.</p>
+            <span class="price">Pedir ahora</span>
+          </a>
+          <a class="menu-card reveal" href="https://www.ubereats.com/es/store/crazy-wings-%26-%2B-bcn/NdfNtVPbWs2m6wFVDTRvkw?diningMode=PICKUP&utm_campaign=CM2508147-search-free-nonbrand-google-pas_e_all_acq_Global&utm_medium=search-free-nonbrand&utm_source=google-pas" target="_blank" rel="noopener noreferrer">
+            <h3>Uber Eats</h3>
+            <p>Pedido online o recogida disponible.</p>
+            <span class="price">Pedir ahora</span>
+          </a>
+          <a class="menu-card reveal" href="https://wa.me/34604822328?text=Hola%20Crazy%20Wings%2C%20quiero%20hacer%20un%20pedido" target="_blank" rel="noopener noreferrer">
+            <h3>WhatsApp</h3>
+            <p>Pedido directo con atención rápida.</p>
+            <span class="price">Escribir ahora</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="galeria">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Galería visual</span>
+            <h2>Platos, ambiente y detalles que construyen la experiencia</h2>
+          </div>
+          <a class="btn btn-secondary" href="https://www.google.com/search?q=craazy+wings&oq=craazy+wings&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTISCAEQLhgNGK8BGMcBGIAEGI4FMgkIAhAAGA0YgAQyDwgDEC4YDRivARjHARiABDIPCAQQLhgNGK8BGMcBGIAEMgkIBRAAGA0YgAQyCQgGEAAYDRiABDIJCAcQABgNGIAEMgkICBAAGA0YgATSAQgyOTI3ajBqN6gCALACAA&sourceid=chrome&ie=UTF-8#lpg=" target="_blank" rel="noopener noreferrer">Ver más imágenes</a>
+        </div>
+
+        <div class="gallery-grid">
+          <a class="gallery-tile large reveal" href="https://www.instagram.com/crazywingsbcn/" target="_blank" rel="noopener noreferrer">
+            <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=1200&q=80" alt="Hamburguesa del restaurante" />
+            <span>Especialidades con carácter</span>
+          </a>
+          <a class="gallery-tile reveal" href="https://www.instagram.com/crazywingsbcn/" target="_blank" rel="noopener noreferrer">
+            <img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&w=900&q=80" alt="Mesa con platos variados" />
+            <span>Momentos para compartir</span>
+          </a>
+          <a class="gallery-tile reveal" href="https://www.instagram.com/crazywingsbcn/" target="_blank" rel="noopener noreferrer">
+            <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=900&q=80" alt="Ambiente del local" />
+            <span>Ambiente y puesta en escena</span>
+          </a>
+          <a class="gallery-tile wide reveal" href="https://www.instagram.com/crazywingsbcn/" target="_blank" rel="noopener noreferrer">
+            <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=1400&q=80" alt="Grupo disfrutando en restaurante" />
+            <span>Una experiencia viva en cada visita</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="opiniones">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Opiniones</span>
+            <h2>Lo que los clientes recuerdan después de cada visita</h2>
+          </div>
+          <div class="btn-row">
+            <a class="btn btn-secondary" href="https://www.google.com/maps/place/Crazy+Wings+%26+%2B+Bcn/@41.4122906,2.1687611,17z/data=!4m8!3m7!1s0x12a4a2c3b6274289:0x8f262e5900d93eca!8m2!3d41.4122906!4d2.1687611!9m1!1b1!16s%2Fg%2F11bv2fgsn8?hl=es-ES&entry=ttu&g_ep=EgoyMDI2MDMyNC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer">Ver reseñas</a>
+          </div>
+        </div>
+
+        <div class="testimonials-grid">
+          <article class="testimonial reveal">
+            <div class="stars">★★★★★</div>
+            <p>“Increíble experiencia. Comida auténtica, deliciosa y con un toque muy especial.”</p>
+            <div class="reviewer">saaid one way · Google</div>
+          </article>
+
+          <article class="testimonial reveal">
+            <div class="stars">★★★★★</div>
+            <p>“Excelente lugar, muy aseado, trato amable y un ambiente muy agradable.”</p>
+            <div class="reviewer">pau sanchez · Google</div>
+          </article>
+
+          <article class="testimonial reveal">
+            <div class="stars">★★★★★</div>
+            <p>“Uno de los mejores restaurantes latinos de Barcelona. Siempre fieles.”</p>
+            <div class="reviewer">Angelo · Google</div>
+          </article>
+
+          <article class="testimonial reveal">
+            <div class="stars">★★★★★</div>
+            <p>“Ambiente súper animado, atención excelente y comida deliciosa. Volveremos.”</p>
+            <div class="reviewer">Sophie Carenzo · Google</div>
+          </article>
+
+          <article class="testimonial reveal">
+            <div class="stars">★★★★★</div>
+            <p>“Vengo desde Valencia y entre el ambiente y la comida me siento en Colombia.”</p>
+            <div class="reviewer">Valentina Hernandez · Google</div>
+          </article>
+
+          <article class="testimonial reveal">
+            <div class="stars">★★★★★</div>
+            <p>“Comida súper rica, atención excelente y ambiente muy agradable.”</p>
+            <div class="reviewer">Juan Andres Martinez Marin · Google</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="reservas">
+      <div class="container booking-wrap">
+        <article class="contact-card reveal">
+          <span class="eyebrow">Reservas</span>
+          <h2>Una mesa lista para tu próxima visita</h2>
+          <p class="muted" style="margin-top:18px;">Una estructura pensada para convertir visitas en reservas. Puedes dejar el formulario conectado a tu backend, email o CRM, y mantener además el acceso directo a la reserva online y a WhatsApp.</p>
+
+          <div class="booking-info" style="margin-top:28px;">
+            <div class="info-tile">
+              <strong>Reserva online</strong>
+              <p><a href="https://www.google.com/maps/reserve/v/dine/c/DMhoug0Rlo0?hl=es-ES&source=pa" target="_blank" rel="noopener noreferrer">Abrir sistema de reservas</a></p>
+            </div>
+            <div class="info-tile">
+              <strong>WhatsApp</strong>
+              <p><a href="https://wa.me/34604822328?text=Hola%20Crazy%20Wings%2C%20quiero%20consultar%20por%20una%20reserva%20de%20mesa." target="_blank" rel="noopener noreferrer">604 82 23 28</a></p>
+            </div>
+            <div class="info-tile">
+              <strong>Horario</strong>
+              <p>Sábado: 13:00–24:00<br>Domingo: 13:00–24:00<br>Lunes: 18:00–24:00<br>Martes: Cerrado<br>Miércoles: Cerrado<br>Jueves: 18:00–24:00<br>Viernes: 18:00–24:00</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="booking-panel reveal">
+          <span class="eyebrow">Formulario</span>
+          <h3>Reservar ahora</h3>
+          <form action="#" method="post">
+            <div class="field">
+              <label for="nombre">Nombre</label>
+              <input id="nombre" name="nombre" type="text" placeholder="Tu nombre" required>
+            </div>
+            <div class="field">
+              <label for="telefono">Teléfono</label>
+              <input id="telefono" name="telefono" type="tel" placeholder="Tu teléfono" required>
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="Tu email" required>
+            </div>
+            <div class="field">
+              <label for="fecha">Fecha</label>
+              <input id="fecha" name="fecha" type="date" required>
+            </div>
+            <div class="field">
+              <label for="hora">Hora</label>
+              <input id="hora" name="hora" type="time" required>
+            </div>
+            <div class="field">
+              <label for="personas">Número de personas</label>
+              <select id="personas" name="personas" required>
+                <option value="">Selecciona</option>
+                <option>1 persona</option>
+                <option>2 personas</option>
+                <option>3 personas</option>
+                <option>4 personas</option>
+                <option>5 personas</option>
+                <option>6 personas</option>
+                <option>7+ personas</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="mensaje">Mensaje</label>
+              <textarea id="mensaje" name="mensaje" placeholder="Indica cualquier detalle adicional"></textarea>
+            </div>
+            <div class="field full">
+              <button class="btn btn-primary" type="submit">Reservar Ahora</button>
+            </div>
+          </form>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="contacto">
+      <div class="container contact-grid">
+        <article class="contact-card reveal">
+          <span class="eyebrow">Ubicación y contacto</span>
+          <h2>Encuéntranos en Barcelona</h2>
+          <div class="booking-info" style="margin-top:28px;">
+            <div class="info-tile">
+              <strong>Dirección</strong>
+              <p>C/ de Padilla, 386, Horta-Guinardó, 08026 Barcelona</p>
+            </div>
+            <div class="info-tile">
+              <strong>Teléfono</strong>
+              <p><a href="tel:604822328">604 82 23 28</a></p>
+            </div>
+            <div class="info-tile">
+              <strong>Email</strong>
+              <p><a href="mailto:crazywingsbcn@hotmail.com">crazywingsbcn@hotmail.com</a></p>
+            </div>
+            <div class="info-tile">
+              <strong>Accesos rápidos</strong>
+              <div class="btn-row">
+                <a class="btn btn-secondary" href="https://www.google.com/maps/search/?api=1&query=Crazy%20Wings%20BCN%20C%2F%20de%20Padilla%20386%20Barcelona" target="_blank" rel="noopener noreferrer">Google Maps</a>
+                <a class="btn btn-whatsapp" href="https://wa.me/34604822328?text=Hola%20Crazy%20Wings%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n." target="_blank" rel="noopener noreferrer">WhatsApp</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <div class="reveal">
+          <iframe class="map-frame" src="https://www.google.com/maps?q=Crazy%20Wings%20BCN%20C%2F%20de%20Padilla%20386%20Barcelona&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa de Crazy Wings BCN"></iframe>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>Crazy Wings BCN</h4>
+          <p>Restaurante de street food colombiano en Barcelona con una imagen renovada, premium, visual y enfocada en reservas.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Contacto</h4>
+          <a href="tel:604822328">604 82 23 28</a>
+          <a href="mailto:crazywingsbcn@hotmail.com">crazywingsbcn@hotmail.com</a>
+          <p>C/ de Padilla, 386, Horta-Guinardó, 08026 Barcelona</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Enlaces rápidos</h4>
+          <a href="#carta">Carta</a>
+          <a href="#reservas">Reservas</a>
+          <a href="#galeria">Galería</a>
+          <a href="https://linktr.ee/Crazywingsbcn" target="_blank" rel="noopener noreferrer">Linktree</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Redes</h4>
+          <a href="https://www.instagram.com/crazywingsbcn/" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href="https://www.facebook.com/CRAZYWINGSBCN" target="_blank" rel="noopener noreferrer">Facebook</a>
+          <a href="https://www.google.com/maps/reserve/v/dine/c/DMhoug0Rlo0?hl=es-ES&source=pa" target="_blank" rel="noopener noreferrer">Reservar mesa</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© Crazy Wings BCN</span>
+        <span>Diseño premium · HTML puro · Responsive · Preparado para SEO local</span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="floating-reserve" aria-label="Accesos rápidos flotantes">
+    <a class="float-book" href="https://www.google.com/maps/reserve/v/dine/c/DMhoug0Rlo0?hl=es-ES&source=pa" target="_blank" rel="noopener noreferrer" aria-label="Reservar mesa">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M3 4.75A2.75 2.75 0 0 1 5.75 2h12.5A2.75 2.75 0 0 1 21 4.75v11.5A2.75 2.75 0 0 1 18.25 19H12.5l-4.86 3.64A.75.75 0 0 1 6.5 22v-3H5.75A2.75 2.75 0 0 1 3 16.25V4.75Z"/></svg>
+    </a>
+    <a class="float-wa" href="https://wa.me/34604822328?text=Hola%20Crazy%20Wings%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n." target="_blank" rel="noopener noreferrer" aria-label="Abrir WhatsApp">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M20.52 3.48A11.86 11.86 0 0 0 12.07 0C5.5 0 .17 5.33.17 11.9c0 2.1.55 4.16 1.59 5.97L0 24l6.3-1.65a11.9 11.9 0 0 0 5.77 1.47h.01c6.56 0 11.9-5.34 11.9-11.9 0-3.18-1.24-6.17-3.46-8.44Z"/></svg>
+    </a>
+  </div>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        }
+      });
+    }, { threshold: 0.16 });
+
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+    const form = document.querySelector('form');
+    form?.addEventListener('submit', function(e){
+      e.preventDefault();
+      alert('Formulario listo para conectar con email, backend o CRM.');
+    });
+
+    const topbar = document.querySelector('.topbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 20) {
+        topbar.style.transform = 'translateY(-2px)';
+      } else {
+        topbar.style.transform = 'translateY(0)';
+      }
+    });
+  </script>
+</body>
+</html>
